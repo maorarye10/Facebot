@@ -11,6 +11,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 5000));
 
+
+const omdbapi = 'cce66ee9'
+
 // Server index page
 app.get("/", function (req, res) {
     res.send("Deployed!");
@@ -117,7 +120,7 @@ function processMessage(event) {
 }
 
 function findMovie(userId, movieTitle) {
-    request("http://www.omdbapi.com/?type=movie&t=" + movieTitle, function (error, response, body) {
+    request(`http://www.omdbapi.com/?apikey=${omdbapi}&type=movie&t=${movieTitle}`, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var movieObj = JSON.parse(body);
             if (movieObj.Response === "True") {
